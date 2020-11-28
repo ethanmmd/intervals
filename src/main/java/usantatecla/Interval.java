@@ -58,7 +58,7 @@ public class Interval {
 		return this.min.toString() + ", " + max.toString();
 	}
 
-	public boolean isIntersectedBy(Interval intersectedInterval) {
+	public boolean isIntersected(Interval intersectedInterval) {
 		return this.include(intersectedInterval.min.value) || this.include(intersectedInterval.max.value);
 	}
 }

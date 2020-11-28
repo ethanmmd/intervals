@@ -10,69 +10,73 @@ public class IntervalTest {
   
   private Point left;
   private Point right;
-  private IntervalBuilder intervalBuilder;
-  private IntervalBuilder interSectedIntervalBuilder;
 
   @BeforeEach
   public void before(){
     this.left = new Point(-2.2);
     this.right = new Point(4.4);
-    this.intervalBuilder = new IntervalBuilder();
-    this.interSectedIntervalBuilder = new IntervalBuilder();
+  }
+
+  static IntervalBuilder generateIntervalBuilder(){
+    return new IntervalBuilder();
   }
 
   @Test
-  public void givenIntervaOpenOpenlwhenIncludeWithIncludedValueThenTrue() {
-    Interval interval = this.intervalBuilder.open(left.getEquals()).open(right.getEquals()).build();
-    assertFalse(interval.include(left.getLess()));
-    assertFalse(interval.include(left.getEquals()));
-    assertTrue(interval.include(left.getGreater()));
-    assertTrue(interval.include(right.getLess()));
-    assertFalse(interval.include(right.getEquals()));
-    assertFalse(interval.include(right.getGreater()));
+  public void givenIntervalOpenOpenWhenIncludeWithIncludedValueThenTrue() {
+    Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    assertIncludeWhenLeftOpen(interval);
+    assertIncludeWhenRightOpen(interval);
   }
 
   @Test
-  public void givenIntervaOpenOpenlwhenInc3ludeWithIncludedValueThenTrue() {
-    Interval interval = this.intervalBuilder.closed(left.getEquals()).open(right.getEquals()).build();
+  public void givenIntervalClosedOpenWhenIncludeWithIncludedValueThenTrue() {
+    Interval interval = generateIntervalBuilder().closed(left.getEquals()).open(right.getEquals()).build();
+    assertIncludeWhenLeftClosed(interval);
+    assertIncludeWhenRightOpen(interval);
+  }
+
+  @Test
+  public void givenIntervalOpenClosedWhenIncludeWithIncludedValueThenTrue() {
+    Interval interval = generateIntervalBuilder().open(left.getEquals()).closed(right.getEquals()).build();
+    assertIncludeWhenLeftOpen(interval);
+    assertIncludeWhenRightClosed(interval);
+  }
+
+  @Test
+  public void givenIntervalClosedCloseWhenIncludeWithIncludedValueThenTrue() {
+    Interval interval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    assertIncludeWhenLeftClosed(interval);
+    assertIncludeWhenRightClosed(interval);
+  }
+
+  @Test
+  public void givenIntervalOpenOpenWhenIsIntersectedByOtherOpenOpenIntervalThenTrue(){
+    Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    Interval intersectedInterval = generateIntervalBuilder().open(left.getLess()).open(right.getLess()).build();
+    assertTrue(interval.isIntersected(intersectedInterval));
+  }
+
+  private void assertIncludeWhenLeftClosed(Interval interval) {
     assertFalse(interval.include(left.getLess()));
     assertTrue(interval.include(left.getEquals()));
     assertTrue(interval.include(left.getGreater()));
-
-    assertTrue(interval.include(right.getLess()));
-    assertFalse(interval.include(right.getEquals()));
-    assertFalse(interval.include(right.getGreater()));
   }
 
-  @Test
-  public void givenIntervaOpenOpenlwhenIncludeWit3hIncludedValueThenTrue() {
-    Interval interval = this.intervalBuilder.open(left.getEquals()).closed(right.getEquals()).build();
-    assertFalse(interval.include(left.getLess()));
-    assertFalse(interval.include(left.getEquals()));
-    assertTrue(interval.include(left.getGreater()));
-
+  private void assertIncludeWhenRightClosed(Interval interval) {
     assertTrue(interval.include(right.getLess()));
     assertTrue(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
   }
 
-  @Test
-  public void givenIntervaOpenOpenlwhenIncludeWithInclude5dValueThenTrue() {
-    Interval interval = this.intervalBuilder.closed(left.getEquals()).closed(right.getEquals()).build();
+  private void assertIncludeWhenLeftOpen(Interval interval) {
     assertFalse(interval.include(left.getLess()));
-    assertTrue(interval.include(left.getEquals()));
+    assertFalse(interval.include(left.getEquals()));
     assertTrue(interval.include(left.getGreater()));
+  }
 
+  private void assertIncludeWhenRightOpen(Interval interval) {
     assertTrue(interval.include(right.getLess()));
-    assertTrue(interval.include(right.getEquals()));
+    assertFalse(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
   }
-
-  @Test
-  public void givenIntervalOpenOpenWhenIsIntersectedByOtherIntervalThenTrue(){
-    Interval interval = this.intervalBuilder.open(left.getEquals()).open(right.getEquals()).build();
-    Interval intersectedInterval = this.interSectedIntervalBuilder.open(left.getLess()).open(right.getLess()).build();
-    assertTrue(interval.isIntersectedBy(intersectedInterval));
-  }
-
 }
