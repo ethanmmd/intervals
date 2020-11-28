@@ -6,35 +6,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MinTest {
-  
-  protected Min min;
-  protected Point point;
+public class MinTest extends BoundTest {
 
-  @BeforeEach
-  public void before(){
-    this.point = new Point(4.4);
-    this.min = this.createMin();
-  }
 
-  protected Min createMin() {
+  protected Bound createBound() {
     return new Min(this.point.getEquals());
   }
 
-  @Test
-  public void givenMinWhenIsWithinWithLessValueThenTrue(){
-    assertFalse(this.min.isWithin(this.point.getLess()));
+  protected boolean isWithinWithLessValue() {
+    return false;
   }
 
-  @Test
-  public void givenMinWhenIsWithinWithEqualsValue(){
-    assertFalse(this.min.isWithin(this.point.getEquals()));
+  protected boolean isWithInWithEqualsValue() {
+    return false;
   }
 
-  @Test
-  public void givenMinWhenIsWithinWithGreaterValueThenTrue(){
-    assertTrue(this.min.isWithin(this.point.getGreater()));
+  protected boolean isWithinWithGreaterValue() {
+    return true;
   }
- 
 }
 
