@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class MaxTest extends BoundTest {
 
-	protected Max createBound() {
+	protected Bound createBound() {
 		return new Max(this.point.getEquals());
 	}
 
