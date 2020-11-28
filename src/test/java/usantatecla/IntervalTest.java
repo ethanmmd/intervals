@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class IntervalTest {
   
-  private Point left = new Point(-2.2);
-  private Point right = new Point(4.4);
+  private Point left;
+  private Point right;
   private IntervalBuilder intervalBuilder;
 
   @BeforeEach
@@ -64,6 +64,15 @@ public class IntervalTest {
     assertTrue(interval.include(right.getLess()));
     assertTrue(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
+  }
+
+  @Test
+  public void givenIntervalOpenOpenWhenIsIntersectedByOtherIntervalThenTrue(){
+    Interval interval = this.intervalBuilder.closed(left.getEquals()).closed(right.getEquals()).build();
+    Interval intersectedInterval = this.intervalBuilder.closed(left.getEquals()).closed(right.getEquals()).build();
+    assertTrue(interval.isIntersectedBy(intersectedInterval));
+
+
   }
 
 }

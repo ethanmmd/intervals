@@ -31,10 +31,13 @@ public abstract class Bound {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Min other = (Min) obj;
-		if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
-			return false;
+		if(this instanceof Min){
+			Min other = (Min) obj;
+			if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
+				return false;
+			}
 		}
+
 		return true;
 	}
 

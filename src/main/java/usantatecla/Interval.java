@@ -26,29 +26,39 @@ public class Interval {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Interval other = (Interval) obj;
 		if (max == null) {
-			if (other.max != null)
+			if (other.max != null) {
 				return false;
-		} else if (!max.equals(other.max))
+			}
+		} else if (!max.equals(other.max)) {
 			return false;
+		}
 		if (min == null) {
-			if (other.min != null)
+			if (other.min != null) {
 				return false;
-		} else if (!min.equals(other.min))
+			}
+		} else if (!min.equals(other.min)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return this.min.toString() + ", " + max.toString();
-	}	
+	}
 
+	public boolean isIntersectedBy(Interval intersectedInterval) {
+		return false;
+	}
 }
