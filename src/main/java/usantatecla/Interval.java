@@ -59,6 +59,13 @@ public class Interval {
 	}
 
 	public boolean existsIntersection(Interval intersectedInterval) {
-		return this.include(intersectedInterval.min.value) || this.include(intersectedInterval.max.value);
+		if (this.include(intersectedInterval.min.value) || this.include(intersectedInterval.max.value)) {
+			return true;
+		} else if (intersectedInterval.include(this.min.value) || intersectedInterval.include(this.max.value)) {
+			return true;
+		}
+		return false;
 	}
+
+
 }
