@@ -12,7 +12,7 @@ public class Interval {
 	}
 
 	public boolean include(double value) {
-			return this.min.isWithin(value) && this.max.isWithin(value);
+		return this.min.isWithin(value) && this.max.isWithin(value);
 	}
 
 	@Override
@@ -59,12 +59,16 @@ public class Interval {
 	}
 
 	public boolean existsIntersection(Interval intersectedInterval) {
-		if (this.include(intersectedInterval.min.value) || this.include(intersectedInterval.max.value)) {
+		if (checkIfIntervalIncludeValue(this, intersectedInterval)) {
 			return true;
-		} else if (intersectedInterval.include(this.min.value) || intersectedInterval.include(this.max.value)) {
+		} else if (checkIfIntervalIncludeValue(intersectedInterval, this)) {
 			return true;
 		}
 		return false;
+	}
+
+	private boolean checkIfIntervalIncludeValue(Interval interval, Interval intersectedInterval) {
+		return interval.include(intersectedInterval.min.value) || interval.include(intersectedInterval.max.value);
 	}
 
 
