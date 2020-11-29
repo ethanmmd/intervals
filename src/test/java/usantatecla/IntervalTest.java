@@ -100,6 +100,14 @@ public class IntervalTest {
   }
 
   @Test
+  public void givenIntervalOpenOpenWhenCompletelyOverlapWithAnotherOpenOpenIntervalThenReturnTrue(){
+    Interval interval = generateIntervalBuilder().open(left.getLess()).open(right.getGreater()).build();
+    Interval intersectedInterval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    assertTrue(interval.overlap(intersectedInterval));
+
+  }
+
+  @Test
   public void givenIntervalOpenOpenWhenOverlapWithSameIntervalOpenOpenThenReturnTrue(){
     Interval interval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
