@@ -58,16 +58,24 @@ public class Interval {
 		return this.min.toString() + ", " + max.toString();
 	}
 
-	public boolean existsIntersection(Interval intersectedInterval) {
-		if (checkIfIntervalIncludeValue(this, intersectedInterval)) {
-			return true;
-		} else if (checkIfIntervalIncludeValue(intersectedInterval, this)) {
+	public boolean overlap(Interval intersectedInterval) {
+
+		if(this.equals(intersectedInterval)){
 			return true;
 		}
+
+		if (checkIfIntervalIncludesValue(this, intersectedInterval)) {
+			return true;
+		}
+		if (checkIfIntervalIncludesValue(intersectedInterval, this)) {
+			return true;
+		}
+
 		return false;
+
 	}
 
-	private boolean checkIfIntervalIncludeValue(Interval interval, Interval intersectedInterval) {
+	private boolean checkIfIntervalIncludesValue(Interval interval, Interval intersectedInterval) {
 		return interval.include(intersectedInterval.min.value) || interval.include(intersectedInterval.max.value);
 	}
 

@@ -50,46 +50,60 @@ public class IntervalTest {
   }
 
   @Test
-  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalOpenOpenOnTheLeftThenReturnTrue(){
+  public void givenIntervalOpenOpenWhenOverlapWithAnotherIntervalOpenOpenOnTheLeftThenReturnTrue(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(left.getLess()).open(right.getLess()).build();
-    assertTrue(interval.existsIntersection(intersectedInterval));
+    assertTrue(interval.overlap(intersectedInterval));
   }
 
   @Test
-  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalOpenOpenOnTheRightThenReturnTrue(){
+  public void givenIntervalOpenOpenWhenOverlapWithAnotherIntervalOpenOpenOnTheRightThenReturnTrue(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(right.getLess()).open(right.getGreater()).build();
-    assertTrue(interval.existsIntersection(intersectedInterval));
+    assertTrue(interval.overlap(intersectedInterval));
 
   }
 
   @Test
-  public void giveIntervalOpenOpenWhenNotExistIntersectionWithAnotherIntervalOpenOpenOnTheLeftThenReturnFalse(){
+  public void giveIntervalOpenOpenWhenNotOverlapWithAnotherIntervalOpenOpenOnTheLeftThenReturnFalse(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(left.getLess()).open(left.getEquals()).build();
-    assertFalse(interval.existsIntersection(intersectedInterval));
+    assertFalse(interval.overlap(intersectedInterval));
   }
 
   @Test
-  public void giveIntervalOpenOpenWhenNotExistIntersectionWithAnotherIntervalOpenOpenOnTheRightThenReturnFalse(){
+  public void giveIntervalOpenOpenWhenNotOverlapWithAnotherIntervalOpenOpenOnTheRightThenReturnFalse(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(right.getEquals()).open(right.getGreater()).build();
-    assertFalse(interval.existsIntersection(intersectedInterval));
+    assertFalse(interval.overlap(intersectedInterval));
   }
 
   @Test
-  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalOpenClosedOnTheLeftThenReturnFalse(){
+  public void givenIntervalOpenOpenWhenOverlapWithAnotherIntervalOpenClosedOnTheLeftThenReturnFalse(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(left.getLess()).closed(left.getEquals()).build();
-    assertTrue(interval.existsIntersection(intersectedInterval));
+    assertTrue(interval.overlap(intersectedInterval));
   }
 
   @Test
-  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalClosedOpendOnTheRightThenReturnFalse(){
+  public void givenIntervalOpenOpenWhenOverlapWithAnotherIntervalClosedOpendOnTheRightThenReturnFalse(){
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().closed(right.getEquals()).open(right.getGreater()).build();
-    assertTrue(interval.existsIntersection(intersectedInterval));
+    assertTrue(interval.overlap(intersectedInterval));
+  }
+
+  @Test
+  public void givenIntervalClosedClosedWhenOverlapWithAnotherIntervalClosedClosedOnTheLeftThenReturnTrue(){
+    Interval interval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    Interval intersectedInterval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    assertTrue(interval.overlap(intersectedInterval));
+  }
+
+  @Test
+  public void givenIntervalOpenOpenWhenOverlapWithSameIntervalOpenOpenThenReturnTrue(){
+    Interval interval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    Interval intersectedInterval = generateIntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    assertTrue(interval.overlap(intersectedInterval));
   }
 
 
