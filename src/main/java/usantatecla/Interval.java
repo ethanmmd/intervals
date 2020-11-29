@@ -60,10 +60,6 @@ public class Interval {
 
 	public boolean overlap(Interval intersectedInterval) {
 
-		if(this.equals(intersectedInterval)){
-			return true;
-		}
-
 		if (checkIfIntervalIncludesValue(this, intersectedInterval)) {
 			return true;
 		}
