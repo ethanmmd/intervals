@@ -76,8 +76,23 @@ public class IntervalTest {
     Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval intersectedInterval = generateIntervalBuilder().open(right.getEquals()).open(right.getGreater()).build();
     assertFalse(interval.existsIntersection(intersectedInterval));
-
   }
+
+  @Test
+  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalOpenClosedOnTheLeftThenReturnFalse(){
+    Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    Interval intersectedInterval = generateIntervalBuilder().open(left.getLess()).closed(left.getEquals()).build();
+    assertTrue(interval.existsIntersection(intersectedInterval));
+  }
+
+  @Test
+  public void givenIntervalOpenOpenWhenExistIntersectionWithAnotherIntervalClosedOpendOnTheRightThenReturnFalse(){
+    Interval interval = generateIntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    Interval intersectedInterval = generateIntervalBuilder().closed(right.getEquals()).open(right.getGreater()).build();
+    assertTrue(interval.existsIntersection(intersectedInterval));
+  }
+
+
 
   private void assertIncludeWhenLeftClosed(Interval interval) {
     assertFalse(interval.include(left.getLess()));
